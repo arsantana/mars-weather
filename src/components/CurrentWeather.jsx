@@ -29,15 +29,16 @@ class CurrentWeather extends Component {
 			.then(response => {
 				this.setState({
 					weatherData: response.data,
-					averageAT: response.data[295].AT.av,
-					minAT: response.data[295].AT.mn,
-					maxAT: response.data[295].AT.mx,
-					currentHWS: response.data[295].HWS.av,
-					currentPRE: response.data[295].PRE.av,
-					season: response.data[295].Season,
-					currentWeatherData: response.data[295],
+					averageAT: response.data[301].AT.av,
+					minAT: response.data[301].AT.mn,
+					maxAT: response.data[301].AT.mx,
+					currentHWS: response.data[301].HWS.av,
+					currentPRE: response.data[301].PRE.av,
+					season: response.data[301].Season,
+					currentWeatherData: response.data[301],
 					sol: response.data.sol_keys[6]
 				})
+				
 			})
 			.catch(error => {
 				console.log(error, 'failed to fetch data')
@@ -45,9 +46,8 @@ class CurrentWeather extends Component {
 
 	}
 	render() {
-		const {sol, season, currentAT, currentHWS, currentPRE, minAT, maxAT, averageAT} = this.state;
+		const {sol, season, currentHWS, currentPRE, minAT, maxAT, averageAT} = this.state;
 
-		console.log('this is current state', sol, season)
 		return(
 			<div className="section">
 				<div className="current-weather card center-align">
@@ -57,6 +57,9 @@ class CurrentWeather extends Component {
 					</div>
 					<div className="card-content">
 						<p>NASA's InSight Mars Lander takes continuous weather measurements (temperature, wind, pressure) on the surface of Mars at Elysium Planitia, a flat, smooth plain near Mars' equator. </p>
+						<br />
+						<h6>Current Season:</h6>
+						<h4>{season}</h4>
 					</div>
 					<div className="card-tabs">
 						<ul className="tabs tabs-fixed-width">
@@ -70,18 +73,22 @@ class CurrentWeather extends Component {
 								<p>Air temperature is in degrees Celsius, as measured by the Temperature and Wind for InSight (TWINS) instrument.</p>
 								<br/>
 								<div>
-									<p><b>High:</b> {maxAT} &deg;C</p>
-									<p><b>Low:</b> {minAT} &deg;C</p>
-									<p><b>Avg:</b> {averageAT} &deg;C</p>
+									<h5><b>High:</b> {maxAT} &deg;C</h5>
+									<h5><b>Low:</b> {minAT} &deg;C</h5>
+									<h5><b>Avg:</b> {averageAT} &deg;C</h5>
 								</div>
 							</div>
 							<div id="tab2">
 								<h6>Pressure</h6>
-								<span>{currentPRE} Pascals</span>
+								<p>Atmospheric pressure is shown in Pascals, as measured by an air pressure sensor, which is part of the Auxiliary Payload Sensor Subsystem (APSS). Typical sea-level pressure on Earth is around 101,325 Pascals.</p>
+								<br/>
+								<h3>{currentPRE} Pascals</h3>
 							</div>
 							<div id="tab3">
 								<h6>Horizontal Wind Speed</h6>
-								<span>{currentHWS} m/s</span>
+								<p>Wind speed is shown in meter per second, as measured by the pair of TWINS booms.</p>
+								<br/> 
+								<h3>{currentHWS} m/s</h3>
 							</div>
 						</div>
 					</div>
