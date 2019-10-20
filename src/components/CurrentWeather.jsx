@@ -29,16 +29,16 @@ class CurrentWeather extends Component {
 			.then(response => {
 				this.setState({
 					weatherData: response.data,
-					averageAT: response.data[301].AT.av,
-					minAT: response.data[301].AT.mn,
-					maxAT: response.data[301].AT.mx,
-					currentHWS: response.data[301].HWS.av,
-					currentPRE: response.data[301].PRE.av,
-					season: response.data[301].Season,
-					currentWeatherData: response.data[301],
+					averageAT: response.data[303].AT.av,
+					minAT: response.data[303].AT.mn,
+					maxAT: response.data[303].AT.mx,
+					currentHWS: response.data[303].HWS.av,
+					currentPRE: response.data[303].PRE.av,
+					season: response.data[303].Season,
+					currentWeatherData: response.data[303],
 					sol: response.data.sol_keys[6]
 				})
-				
+				console.log(response)
 			})
 			.catch(error => {
 				console.log(error, 'failed to fetch data')
