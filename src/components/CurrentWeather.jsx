@@ -27,15 +27,26 @@ class CurrentWeather extends Component {
 
 		axios.get(END_POINT)
 			.then(response => {
+				console.log("response:", response.data)
+				var daysRecieved = response.data.sol_keys;
+				var lastday = daysRecieved[daysRecieved.length-1];
+
+				var windSpeed = -1;
+				if (response.data[lastday].HWS) {
+					windSpeed = response.data[lastday].HWS.av;
+				} else {
+					windSpeed = "not provided by api"
+				}
+
 				this.setState({
 					weatherData: response.data,
-					averageAT: response.data[303].AT.av,
-					minAT: response.data[303].AT.mn,
-					maxAT: response.data[303].AT.mx,
-					currentHWS: response.data[303].HWS.av,
-					currentPRE: response.data[303].PRE.av,
-					season: response.data[303].Season,
-					currentWeatherData: response.data[303],
+					averageAT: response.data[lastday].AT.av,
+					minAT: response.data[lastday].AT.mn,
+					maxAT: response.data[lastday].AT.mx,
+					currentHWS: windSpeed,
+					currentPRE: response.data[lastday].PRE.av,
+					season: response.data[lastday].Season,
+					currentWeatherData: response.data[lastday],
 					sol: response.data.sol_keys[6]
 				})
 				console.log(response)
